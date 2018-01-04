@@ -1,0 +1,314 @@
+git
+python
+laravel (php)
+
+-------------------------------------------------
+
+GitHub, yapacaðýmýz ve daha yapým  aþamasýnda olduðumuz  veya geliþtirmekte olduðumuz bir projeye tanýdýðýmýz 
+veya tanýmadýðýmýz farklý þahýslarýn projeye destek vermelerini ve projeye  dahil olmalarýný saðlamak amacýyla 
+kurulan bir proje yönetim sistemidir. 
+
+Git bir versiyon kontrol sistemidir. Peki versiyon kontrol sistemi nedir? 
+Versiyon kontrol sistemi (VCS), en basit tanýmýyla, projenizi geliþtirirken yaptýðýnýz deðiþiklikleri 
+adým adým kaydedebildiðiniz ve isterseniz bunu internet üzerinde uzak bir depoda (remote repository) 
+saklayabildiðiniz bir sistemdir.
+
+Versiyon kontrol sistemi size bir depo saðlar ve burada projenin dosyalarýndaki deðiþiklikler geçmiþiyle birlikte tutulur.
+--------------------
+O zaman kendimizi tanýtarak baþlayalým.
+
+
+
+ $ Git config --global user.name "Gulfem Akgun"
+
+$ Git config --global user.email "akgun@ornek.com"
+
+
+
+"--global" sayesinde ilgili bilgisayarda þu an olan ve gelecekte oluþturulacak depolarda bu yapýlandýrmanýn kullanýlmasýný saðlamýþ oluyoruz.
+
+
+
+Buradaki isim ve mail bilgilerini vermediðiniz zaman proje üzerinde commit yaptýðýnýzda, commit mesajlarýnýzda github kullanýcý adýnýz deðil de commiti yaptýðýnýz 
+bilgisayarýn kullanýcý adý görünüyor.
+
+
+Komut satýrý renklerle daha okunabilir olacaktýr. Git'in renklerini açalým.
+
+
+  $ Git config --global color.ui gerçek
+
+
+Artýk bir depo oluþturabiliriz. Herhangi bir klasörde git deposu oluþturmak için "git init" komutunu yazmamýz yeterli. Basit olmasý için boþ bir klasörde baþlayalým.
+
+
+  $ Git init
+
+
+Bu komut,bulunduðunuz klasörde ".git" isimli bir klasör oluþturacaktýr. Bu klasörle doðrudan iþlem yapmanýz gerekmiyor; ama isterseniz bu dosya içerisinde projenizin 
+geçmiþi, bu depoya özel yapýlandýrmalarýnýz, etiketleriniz ve benzeri verileri tutabilirsiniz.
+
+Þimdi projemize bir þeyler ekleyelim. Ben örnek olarak "index.html" isimli bir dosya oluþturuyorum. Depomuza iþlemeden önce yaptýðýmýz deðiþikliklerin listesini 
+görmek için aþaðýdaki komutu kullanabiliriz.
+
+
+   $ git status   
+
+
+Yukarýdaki komutu çalýþtýrdýðýmýzda bir dosya yeni oluþturulmuþ ise "takip edilmeyen" (untracked), daha önceden depoya iþlenmiþ bir dosya deðiþtirilmiþ ise 
+"deðiþtirilmiþ" (modified) gibi durumlar gösterilecektir.
+
+Evet, artýk bu dosyayý depomuza kaydetmek istiyoruz. Kendi bilgisayarýmýzda çalýþýrken deðiþiklikler depoya iþlenmeden önce bir sahne alanýndan (staging area) 
+geçer; yani projemize yaptýðýmýz deðiþiklikleri önce bu alana yerleþtiririz, sonrasýnda da bu alandan depoya iþleriz.
+
+Sahne alanýna eklemek için "git add" komutunu kullanýyoruz.
+
+
+ $ git add index.html
+
+
+Yazdýktan sonra tekrar "git status" komutuyla þu andaki durumumuza bakabiliriz. Baþka dosyalar da eklemek istiyorsak tercih ettiðimiz editörümüz ile
+ yeni dosyalar oluþturup tekrar "git add" komutu ile sahne alanýmýza ekleyebiliriz. Örneðimiz için þimdilik bu kadar yeter diyip ilk depoya iþleyiþimizi
+ tamamlamak için:
+
+
+ $ git commit -m "index.html eklendi"
+
+
+komutunu yazýyoruz. "-m" seçeneði sayesinde bu iþlemede yaptýðýmýz deðiþikliklerle ilgili ufak bir açýklama ekleyebiliyoruz. 
+Böylece sonradan iþleme geçmiþine baktýðýmýzda neler olup bittiðini anlamamýz hayli kolaylaþýyor. Bu komut ayrýca bize eklenen, 
+çýkarýlan veya deðiþtirilen dosyalarý tekrar özetliyor.
+
+Diyelim ki birkaç iþleme yaptýk ve bu süre boyunca neler yapatýðýmýza bakmak istiyoruz.
+
+
+
+  $ git log
+
+
+
+Yukarýdaki komutu çalýþtýrdýðýmýzda geçmiþte yapýlan iþlemler bu iþlemleri yapanlarla birlikte yapýlma sýrasýna göre gösterilecektir.
+
+Þimdiye kadar hep kendi bilgisayarýmýzda çalýþtýk. Diðer bilgisayarlarla çalýþmak için diðer bilgisayara 
+"veya daha doðrusu uzaktaki bir bilgisayardaki depoya" ait linki git'in "uzak bilgisayarlar" (remote) listesine eklememiz gerekiyor.
+
+
+  $ git remote add merkez git@github.com:kullaniciadi/repo_adi.git
+
+
+
+Bu komutu çalýþtýrdýðýmýzda git, git@github.com:kullaniciadi/repo_adi.git adresini þu an kullandýðýmýz bilgisayardaki depoya
+ "merkez" isminde kaydediyor. Bilgisayarýmýzdaki depoda yaptýðýmýz deðiþikliklerimizi daha sonra bu depoya göndermek için ise aþaðýdaki komutu kullanýyoruz.
+
+
+ $ git push -u merkez master
+
+
+Burada göndermek istediðimiz uzak bilgisayarýn adýný (merkez) ve depomuzun hangi dalýný göndermek istediðimizi belirtiyoruz. "-u" ise, 
+özellikle baþka bir depo adresi vermediðimiz sürece, bundan sonra göndermek istediðimiz deðiþiklikler için "merkez" isimli uzaktaki depomuzu kullanacaðýmýzý 
+git'e söylememizi saðlýyor. Yani daha sonra bu depoya bir deðiþiklik göndermek istediðimizde "git push" yazmamýz yeterli.
+
+Diyelim ki biraz zaman geçti. Baþka insanlarý bu proje üzerinde çalýþmak üzere davet ettik. Onlara uzaktaki depomuzun linkini verdik, onlar da kendi
+ deðiþikliklerini yaptýlar ve o depoya gönderdiler. Uzaktaki depomuza yapýlan bu deðiþiklikleri almak için ise "git pull" komutumuz var.
+
+
+
+
+   $ git pull merkez master
+
+
+Bu komutla birlikte depomuza gönderilen deðiþiklikler bilgisayarýmýza indiriliyor ve bilgisayarýmýzdaki depomuz ile uzaktaki depomuz ayný hale geliyor.
+
+Bütün bu öðrendiklerimiz kullanýldýkça daha iyi anlaþýlabilir. Þimdi de "git diff" komutuna bir göz atalým. Depomuzda yaptýðýmýz deðiþikleri 
+ayrýntýlý olarak görmek için bu komutu kullanabiliriz.
+
+
+
+  $ git diff HEAD
+
+
+
+Yukarýdaki komutla birlikte depomuza en son iþleme yapýldýktan sonra yapýlan deðiþiklikleri satýr satýr görebiliriz. Burada "HEAD",
+ en son yapýlan iþlemeye (commit) karþýlýk gelen bi göstergedir; yani bu komut en son iþleme ile þu an arasýnda ne fark var sorusunun cevabýný bulmamýza yardýmcý olur. Sahne alanýmýzý hatýrlýyorsunuz; iþlemeye hazýr olduðunu belirttiðimiz dosyalar burada tutuluyordu. Buradaki deðiþikliklere bakmak istersek "git diff" komutuna "--staged" seçeneðini eklememiz yeterli olacaktýr.
+-------------------------------------------------------------------------------
+
+
+Bilgisayarýmýz ve Github arasýnda güvenli bir baðlantý saðlayabilmek için ssh-key kullanmalýyýz. Bunun için bilgisayarýmýzda ssh-key oluþturmamýz gerek. 
+Önce var olan bir key var mý diye bakalým.
+
+cd ~/.ssh
+ls # config id_rsa id_rsa.pub known_hosts
+
+Yeni bir ssh key oluþturalým.
+
+ssh-keygen
+
+Karþýmýza gelen aþaðýdaki ekraný Enter'leyerek geçelim.
+
+Creates a new ssh key using the provided email
+
+Generating public/private rsa key pair.
+
+Enter file in which to save the key (/home/you/.ssh/id_rsa):
+
+
+Arkasýndan ssh key oluþturmak için bizden þifre girmemiz isteniyor.
+
+Enter passphrase (empty for no passphrase): [Type a passphrase]
+
+Enter same passphrase again: [Type passphrase again]
+
+
+
+Ýþlemleri doðru yaptý isek aþaðýdaki gibi bir ekran görüntüsü almamýz gerekmektedir.
+
+Your identification has been saved in /home/you/.ssh/id_rsa.
+
+Your public key has been saved in /home/you/.ssh/id_rsa.pub.
+
+The key fingerprint is:
+
+01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@youremail.com `
+
+
+
+Github'ta Account Settings'te sol taraftaki add ssh key bölümüne girip oraya ssh key'imizi ekliyoruz.
+
+Lokal Depo Git tarafýndan yönetilen üç aðaçtan oluþur. aþamada çalýþmaktadýr:
+
+1- Ýlk kýsým gerçek dosyalarý tutan Çalýþma Dizini,
+2- Ýkinci kýsým yereldeki depomuz Ýndex,
+3-Üçüncü kýsým ise uzak depo Head
+
+Þimdi clone komutu ile uzaktaki projeyi çekelim.
+
+
+git clone uzak_sunucu_adresi
+
+Böylece projeyi tüm deðiþikleriyle bilgisyaraýmýza almýþ olduk.
+----------------------------------------------------------------------------------
+
+Depoya Dosya Nasýl Eklenir? 
+
+Öncelikle depoya eklemek istediðimiz veya daha önce eklenmiþ,deðiþiklik yapýlmýþ dosyayý index denilen git geçici alanýna eklemeliyiz.
+
+git add dosya_ismi
+
+
+Þimdi bu dosyanýn geçici alandan alýnýp yerel depoya gönderilebilmesi için commit edilmesi gerekli.
+
+git -m taahhüt "commitin içeriðini anlatan mesajýmýz"
+
+Böylece dosyamýz yerel depoya atýldý.Ancak henüz uzak depoya ulaþmadý.Uzak depoya atabilmemiz için aþaðýdaki kodu giriyoruz.
+
+git push origin bulunduðumuz_branch_dalý
+
+
+Arkadaþlarýmýzýn yaptýðý deðiþiklikleri kendi yerl depomuza çekmek için;
+
+git pull
+-
+-----------------------------------------------------------------------------------------
+
+Dallar (Branches)
+
+Git'te default olarak master dalý gelir. Ýstersek baþka dallar oluþturabiliriz ve silebiliriz.
+
+git branch yeni_dal_ismi (yeni dal oluþturmamýzý saðlar.)
+
+git checkout yeni_dal_ismi (o dala geçmemizi saðlar.)
+
+git branch -D branch_adý (dalý siler.)
+
+Birden fazla dalýmýz varken iki daldaki deðiþiklikleri birleþtirmek için merge komutunu kullanýyoruz. 
+Bu komut ile bulunduðumuz branch, burada ismini vereceðimiz branch ile birleþmiþ oluyor. 
+Merge iþlemi iki farklý geliþtirici ortak deðiþiklikleri commit'lemiþ ise çakýþmalara yol açabilir. Buna dikkat etmek gerekir.
+
+git merge dal_adý
+
+-------------------------------------------------------------------------------------------
+Git komutlarýný anlamak açýsýndan nasýl çalýþtýðýna biraz daha yakýndan bakalým.
+Dosya Silme
+
+Commit'lediðimiz bir dosyayý silmek için:
+
+
+
+Git rm dosya_adý git push kökenli bulunduðumuz_dal_ismi
+
+Bu adým yapýlan her deðiþikliðin uzak depoya gönderilebilmesi için yapýlmalýdýr. Ancak bu komut ile dosya silinir. Dosyayý geri döndürmek mümkün olmakla beraber dosya silindikten sonra commit mesajlarý tutulmaya devam eder. 
+
+
+Dosyayý geri döndürme ise dosyanýn loglarýnýn tutuluyor olmasý ile mümkündür.
+
+Git revert silinen_dosya_log_id
+
+--------------------------------------------------------------------------------------------
+Kayda Hazýrlanmýþ Bir Dosyayý Hazýrlýk Alanýndan Kaldýrmak
+
+
+benchmarks.rb dosyasýný hazýrlýk alanýndan kaldýralým:
+
+$ git reset HEAD benchmarks.rb benchmarks.rb: locally modified
+  $ git status
+  # On branch master
+  # Changes to be committed:
+  # (use "git reset HEAD <file>..." to unstage)
+  # modified: README.txt
+  # Changed but not updated:
+  # (use "git add <file>..." to update what will be committed)
+  # (use "git checkout -- <file>..." to discard changes in working directory)
+  # modified: benchmarks.rb
+
+"benchmarks.rb" dosyasý hazýrlýk alanýndan kaldýrýldý ama hâlâ deðiþmiþ olarak görünüyor.
+
+-----------------------------------------------------------------------------------------------
+
+
+Son Kayýt Ýþlemini Deðiþtirmek
+
+Eðer kaydý çok erken yapmýþsanýz, bazý dosyalarý eklemeyi unutmuþsanýz ya da kayýt mesajýnda hata yapmýþsanýz,
+ sýk rastlanan düzeltme iþlemlerinden birini kullanabilirsiniz. Kaydý deðiþtirmek isterseniz, commit komutunu --amend seçeneðiyle çalýþtýrabilirsiniz:
+
+
+$ git commit --amend
+Bu komut, hazýrlýk alanýndaki deðiþiklikleri alýp bunlarý kaydý deðiþtirmek için kullanýr. Eðer son kaydýnýzdan beri hiçbir deðiþiklik yapmamýþsanýz
+o zaman kaydýnýzýn bellek kopyasý ayný kalacak ve deðiþtireceðiniz tek þey kayýt mesajý olacaktýr. 
+
+-----------------------------------------------------------------------------------------------
+
+Deðiþmiþ Durumda ki Bir Dosyayý Deðiþmemiþ Duruma Geri Getirme
+
+$ git checkout -- benchmarks.rb
+ $ git status
+ # On branch master
+ # Changes to be committed:
+ # (use "git reset HEAD <file>..." to unstage)
+ # modified: README.txt
+
+Gördüðünüz gibi deðiþiklikler çöpe atýldý. Bunun tehlikeli bir komut olduðunu aklýnýzdan çýkarmayýnýz. O dosyaya yaptýðýnýz bütün deðiþiklikler þimdi yok oldu.
+
+-----------------------------------------------------------------------------------------------
+
+Tüm Kayýttan Bir Dosyayý Kaldýrma
+
+> $ git filter-branch --tree-filter 'rm -f passwords.txt' HEAD
+Rewrite 6b9b3cf04e7c5686a9cb838c3f36a8cb6a0fc2bd (21/21)
+Ref 'refs/heads/master' was rewritten
+
+"passwords.txt" adlý dosyayý tüm geçmiþten kaldýrmak için filter-branch seçeneði olan "--tree-filter" kullanýlabilir.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
